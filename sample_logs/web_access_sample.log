@@ -1,0 +1,7 @@
+2026-10-18T10:00:00Z 192.0.2.21 GET / 200 user=guest
+2026-10-18T10:00:05Z 192.0.2.21 GET /login 200 user=guest
+2026-10-18T10:00:10Z 203.0.113.70 POST /login 401 username=unknown
+2026-10-18T10:00:13Z 203.0.113.70 POST /login 401 username=unknown
+2026-10-18T10:00:16Z 203.0.113.70 POST /login 401 username=unknown
+2026-10-18T10:01:00Z 192.0.2.21 GET /dashboard 200 username=guest
+2026-10-18T10:03:45Z 192.0.2.21 GET /robots.txt 404 username=guest

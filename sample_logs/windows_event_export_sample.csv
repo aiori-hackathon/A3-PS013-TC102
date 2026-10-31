@@ -1,0 +1,6 @@
+Timestamp,EventType,Username,Source_IP,Message
+2026-10-18T11:00:00Z,LogonSuccess,student,192.0.2.30,Login successful for student
+2026-10-18T11:02:00Z,LogonFailure,unknown,203.0.113.80,Login failed for user unknown
+2026-10-18T11:02:10Z,LogonFailure,unknown,203.0.113.80,Login failed for user unknown
+2026-10-18T11:02:20Z,LogonFailure,unknown,203.0.113.80,Login failed for user unknown
+2026-10-18T11:05:00Z,System,system,,Service started normally

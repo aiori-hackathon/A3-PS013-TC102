@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#0b1220"><title>TraceForge · Digital Evidence Workspace</title>
+  <link rel="icon" type="image/svg+xml" href="/static/favicon.svg">
+  <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+  <div id="auth-screen" class="auth-shell">
+    <div class="auth-brand"><div class="brand-mark">TF</div><div><div class="brand-name">TraceForge</div><div class="muted">Evidence. Timeline. Clarity.</div></div></div>
+    <div class="auth-card"><div class="eyebrow">PS-013 · INVESTIGATION WORKSPACE</div><h1 id="auth-title">Welcome back</h1><p class="muted" id="auth-subtitle">Sign in to continue your investigations.</p>
+      <form id="auth-form" class="stack">
+        <label id="name-field" class="hidden">Display name<input id="auth-name" minlength="2" maxlength="100" placeholder="Your name"></label>
+        <label>Email address<input id="auth-email" type="email" required autocomplete="email" placeholder="you@example.com"></label>
+        <label>Password<input id="auth-password" type="password" required minlength="8" autocomplete="current-password" placeholder="At least 8 characters"></label>
+        <button class="btn primary full" id="auth-submit" type="submit">Sign in <span>→</span></button>
+      </form><p id="auth-message" class="notice hidden"></p>
+      <p class="auth-switch"><span id="auth-switch-label">New to the workspace?</span> <button class="link-button" id="auth-switch" type="button">Create an account</button></p>
+      <p class="tiny muted">Use synthetic or authorized log data only. This educational tool does not prove an attack occurred.</p>
+    </div>
+  </div>
+
+  <div id="app-shell" class="app-shell hidden">
+    <aside class="sidebar">
+      <div class="brand"><div class="brand-mark">TF</div><div><div class="brand-name">TraceForge</div><div class="brand-caption">PS-013 / EVIDENCE LAB</div></div></div>
+      <div class="nav-label">WORKSPACE</div>
+      <nav id="nav">
+        <button class="nav-item active" data-view="dashboard"><span class="nav-icon">▦</span> Dashboard</button>
+        <button class="nav-item" data-view="upload"><span class="nav-icon">↑</span> Add evidence</button>
+        <button class="nav-item" data-view="history"><span class="nav-icon">◷</span> Activity history</button>
+        <button class="nav-item" data-view="reports"><span class="nav-icon">▤</span> Reports</button>
+        <button class="nav-item" data-view="settings"><span class="nav-icon">⚙</span> Settings</button>
+      </nav>
+      <div class="sidebar-bottom"><div class="secure-dot"></div><div><strong>Local workspace</strong><span>Files remain on this server</span></div></div>
+      <button id="logout" class="logout">↪ Sign out</button>
+    </aside>
+    <main class="main-content">
+      <header class="topbar"><div><div class="eyebrow" id="crumb">OVERVIEW</div><h1 id="page-title">Dashboard</h1></div><div class="top-user"><div class="avatar" id="avatar">U</div><div><strong id="user-name">User</strong><span id="user-email">user@example.com</span></div></div></header>
+      <div id="toast" class="toast hidden" role="status"></div>
+      <section id="view-dashboard" class="view">
+        <div class="welcome-row"><div><h2>Your investigation overview</h2><p class="muted">A clear view of uploaded evidence and rule-based observations.</p></div><button class="btn primary" data-go="upload">＋ Add evidence</button></div>
+        <div class="stat-grid">
+          <article class="stat-card"><div class="stat-top"><span>Evidence files</span><span class="stat-icon blue">▣</span></div><div class="stat-value" id="stat-evidence">0</div><div class="stat-foot">Uploaded to your workspace</div></article>
+          <article class="stat-card"><div class="stat-top"><span>Events analyzed</span><span class="stat-icon purple">⌁</span></div><div class="stat-value" id="stat-events">0</div><div class="stat-foot">Recognized records from completed evidence</div></article>
+          <article class="stat-card"><div class="stat-top"><span>Findings</span><span class="stat-icon amber">◎</span></div><div class="stat-value" id="stat-findings">0</div><div class="stat-foot">Rule-based observations</div></article>
+          <article class="stat-card"><div class="stat-top"><span>High-priority findings</span><span class="stat-icon red">!</span></div><div class="stat-value" id="stat-high">0</div><div class="stat-foot">Rule matches requiring review, not confirmed attacks</div></article>
+        </div>
+        <div class="stat-grid supplemental-stats">
+          <article class="stat-card"><div class="stat-top"><span>Investigation cases</span><span class="stat-icon blue">▧</span></div><div class="stat-value" id="stat-cases">0</div><div class="stat-foot">Cases owned by your account</div></article>
+          <article class="stat-card"><div class="stat-top"><span>Processing failures</span><span class="stat-icon red">!</span></div><div class="stat-value" id="stat-failures">0</div><div class="stat-foot">Uploads that need review</div></article>
+        </div>
+        <div class="content-grid"><article class="panel"><div class="panel-heading"><div><h3>Recent evidence</h3><p class="muted">Your latest uploaded files</p></div><button class="text-button" data-go="reports">View all →</button></div><div id="recent-evidence" class="table-wrap"></div></article>
+          <article class="panel"><div class="panel-heading"><div><h3>Findings to review</h3><p class="muted">Priority is a review guide, not proof of compromise.</p></div></div><div id="severity-chart" class="severity-list"></div><div class="callout"><span>i</span><p>Findings are prompts for investigation, not proof that an attack occurred.</p></div></article></div>
+        <div class="panel workflow-panel"><div><div class="eyebrow">WORKFLOW</div><h3>From raw logs to a reviewable report</h3><p class="muted">Upload → Parse → Build timeline → Review findings → Export report</p></div><button class="btn secondary" data-go="upload">Start an investigation →</button></div>
+      </section>
+
+      <section id="view-upload" class="view hidden"><div class="section-intro"><h2>Add digital evidence</h2><p class="muted">Upload a log file from a system you own or are authorized to investigate.</p></div>
+        <div class="upload-layout"><article class="panel upload-panel"><form id="upload-form"><label>Investigation case<select id="investigation-select" name="investigation_id" required></select><span class="help-text">Evidence is grouped under the selected investigation.</span></label><div class="inline-form"><input id="new-case-title" maxlength="200" minlength="3" placeholder="New investigation title"><button class="btn secondary small" id="create-case" type="button">＋ Create case</button></div><label class="dropzone" for="evidence-file"><div class="upload-icon">↑</div><h3>Choose a log file</h3><p class="muted">Drag-and-drop is not required; click to browse your computer.</p><div class="file-types">.LOG <span>·</span> .TXT <span>·</span> .CSV <span>·</span> .JSON</div><input id="evidence-file" type="file" accept=".log,.txt,.csv,.json" required><div id="selected-file" class="selected-file hidden"></div></label><div class="form-footer"><span class="muted tiny" id="upload-limit">Maximum file size: 10 MB</span><button class="btn primary" id="upload-button" type="submit">Upload and analyse <span>→</span></button></div></form><div id="upload-result" class="hidden"></div></article>
+          <aside class="panel tips-panel"><div class="eyebrow">BEFORE YOU UPLOAD</div><h3>Evidence handling</h3><ul class="check-list"><li><span>✓</span><div><strong>Preserve the original</strong><p>Work with a copy whenever possible.</p></div></li><li><span>✓</span><div><strong>Record a SHA-256 hash</strong><p>Helps detect later content changes against the stored reference.</p></div></li><li><span>✓</span><div><strong>Check parsing gaps</strong><p>Some log formats may not be fully recognized.</p></div></li><li><span>✓</span><div><strong>Protect private data</strong><p>Logs may contain usernames and IP addresses.</p></div></li></ul><div class="callout"><span>!</span><p>Only upload files you have permission to collect and review.</p></div></aside></div>
+      </section>
+
+      <section id="view-history" class="view hidden"><div class="section-intro"><h2>Activity history</h2><p class="muted">A security audit trail of important account and evidence actions. Investigation files and generated reports are listed under Reports.</p></div><article class="panel"><div id="history-table" class="table-wrap"></div></article></section>
+      <section id="view-reports" class="view hidden"><div class="section-intro"><h2>Evidence and reports</h2><p class="muted">Review evidence, search structured events, and generate one complete report or a data package.</p></div><article class="panel search-panel"><form id="event-search-form" class="event-search-form"><label>Search all processed events<input id="event-search-query" maxlength="200" placeholder="IP address, username, event ID, or keyword"></label><label>Severity<select id="event-search-severity"><option value="">All severities</option><option value="high">High</option><option value="medium">Medium</option><option value="low">Low</option><option value="info">Info</option></select></label><button class="btn primary" type="submit">Search events</button></form><div id="event-search-results" class="table-wrap"></div></article><article class="panel"><div id="evidence-table" class="table-wrap"></div></article><article id="detail-panel" class="panel hidden detail-panel"></article><article class="panel report-history-panel"><div class="panel-heading"><div><h3>Generated report history</h3><p class="muted">Saved report files remain available after navigation and restart.</p></div><button class="text-button" id="refresh-reports">Refresh</button></div><div id="report-history-table" class="table-wrap"></div></article></section>
+      <section id="view-settings" class="view hidden"><div class="section-intro"><h2>Workspace settings</h2><p class="muted">Personalize your workspace and tune the demo analysis rules.</p></div><div class="settings-layout"><article class="panel"><h3>Account and analysis</h3><form id="settings-form" class="settings-form"><label>Display name<input id="settings-name" required minlength="2" maxlength="100"></label><label>Email address<input id="settings-email" disabled></label><label>Display timezone<select id="settings-timezone"><option value="UTC">UTC</option><option value="Asia/Kolkata">India Standard Time (Asia/Kolkata)</option><option value="Europe/London">UK (Europe/London)</option><option value="America/New_York">US Eastern (America/New_York)</option></select><span class="help-text">Controls how dates are displayed in the workspace; report event timestamps remain normalized to UTC.</span></label><label>Maximum upload size (MB)<input id="settings-size" type="number" min="1" max="100" required><span class="help-text">Controls the maximum size of each upload for your account.</span></label><label>Failed-login alert threshold<input id="settings-threshold" type="number" min="2" max="20" required><span class="help-text">Trigger an authentication review finding when this many failures from one source are seen within 15 minutes. If timestamps are missing, the rule uses a source-scoped count and says so in the finding.</span></label><button class="btn primary" type="submit">Save settings</button></form></article><article class="panel"><h3>About this workspace</h3><div class="about-row"><span>Application</span><strong>TraceForge</strong></div><div class="about-row"><span>Version</span><strong>1.3.0</strong></div><div class="about-row"><span>Analysis approach</span><strong>Explainable rules</strong></div><div class="about-row"><span>Database</span><strong>SQLite</strong></div><div class="callout"><span>i</span><p>For a production deployment, add HTTPS, managed secrets, database migrations, backups, stronger session management, and security review.</p></div></article></div></section>
+      <footer class="footer">TraceForge <span>·</span> Educational incident-response support, not an automated forensic verdict.</footer>
+    </main>
+  </div>
+  <script src="/static/app.js" defer></script>
+</body></html>
